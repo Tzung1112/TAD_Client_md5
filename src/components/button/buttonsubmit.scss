@@ -1,0 +1,18 @@
+button {
+    width: 100px;
+    height: 48px;
+    /* Điều chỉnh chiều cao để nút trở nên thon gọn */
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    /* Điều chỉnh khoảng cách trong nút */
+    cursor: pointer;
+    border-radius: 4px;
+    /* Bo góc tròn */
+    transition: background-color 0.3s ease;
+    &:hover {
+            background-color: darkred;
+        }
+}
+

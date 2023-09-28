@@ -1,0 +1,72 @@
+.modal_container{
+  .button{
+    width: 100px;
+    height: 100px;
+    
+  }
+      
+    .modal_item{
+  
+            position: absolute;
+            top: 50%;
+            left: 50%;
+           width: 100%;
+           height: 100%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+      background-color:rgba($color: #000000, $alpha: 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .close{
+        border: 1px solid $clg; 
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 30px;
+        position: absolute;
+        top: 40px;
+        right: 55px;
+        &:hover{
+          color: red;
+        }
+      }
+      .item{
+        width:90%;
+        height: 85%;
+        background-color: rgb(255, 255, 255);
+        border-radius: 5px;
+        padding: 20px;
+        .input{
+          width: 100%;
+          height: 100%;
+        padding: 20px;
+          background-color: darkcyan;
+          .input_category{
+            height: 10%;
+            width: 100%;
+            font-size: 40px;
+
+          }
+          .input_category_detail{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            input{
+              padding: 10px;
+              border: 1px solid black;
+            }
+            .addnew{
+              height: 40px;
+              background-color: gold;
+              color: black;
+              &:hover{
+              background-color: rgb(177, 151, 1);
+              }
+            }
+          }
+        }
+      }
+    }
+}
