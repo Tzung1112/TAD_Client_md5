@@ -11,8 +11,9 @@ const initialState:ProductState={
 export const findProduct=createAsyncThunk(
     "product/findProduct",
     async ()=>{
-        const result=await api.productApi.findProduct()
-        return result.data
+        const result=await api.productApi.findAll()
+        console.log("🚀 ~ file: product.ts:15 ~ result:", result)
+        return result
     }
 )
 const productSlice=createSlice({
@@ -20,6 +21,7 @@ const productSlice=createSlice({
     initialState,
     reducers:{
         addProduct:(state, action)=>{
+
             state.data=[...action.payload];
         }
     },

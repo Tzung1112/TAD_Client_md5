@@ -74,10 +74,11 @@ export interface Product{
         name: string;
         description: string;
         price: number;
+        categoryDetailId:number
         size: ProductSize;
         color: ProductColor;
         pictures: Productpicture[];
-        categoryDetail: CategoryDetails[]; 
+        // categoryDetail: CategoryDetails[]; 
 }
 export interface Productpicture {
         id: string;

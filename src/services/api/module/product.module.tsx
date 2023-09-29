@@ -10,7 +10,11 @@ export default {
             }
         })
     },
-    findProduct: async (categoryDetailsId: number) => {
+    findProduct: async (categoryDetailsId:number) => {
         return await axios.get(`${import.meta.env.VITE_SV_HOST}product/${categoryDetailsId}`)
+    },
+    findAll: async () => {
+        return await axios.get(import.meta.env.VITE_SV_HOST + "product" + "/findAll")
     }
+
 }

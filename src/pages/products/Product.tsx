@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '@/stores';
@@ -8,15 +8,21 @@ import { productAction } from '@/stores/slices/product';
 import "./product.scss"
 export default function Product() {
     const navigate = useNavigate();
-
+    const dispatch = useDispatch()
+    const [categoryDetaiId, setCategoryDetaiId]=useState(0)
     const { categoryId }: any = useParams();
-
     const categoryStore: any = useSelector((store: StoreType) => {
         return store.categoryStore;
-
     });
     const category: Category = categoryStore.data.find((item: any) => item.id == categoryId);
-    
+   useEffect(()=>{
+    api.productApi.findAll()
+    .then((res) => {
+        dispatch(productAction.addProduct(res.data))
+    }).catch((err) => {
+        
+    });
+   },[])
     return (
         <div className='product_container'>
             <div className='title'>
@@ -34,7 +40,7 @@ export default function Product() {
                 <div className='category_detail'>
                     <ul>
 
-                        {category.categoryDetails.map((item: CategoryDetails) => (<li key={item.id} onClick={() => navigate(`product/productlist/${item.id}`)}>{item.name}</li>))}
+                        {category.categoryDetails.map((item: CategoryDetails) => (<li key={item.id} onClick={() => {navigate(`product/productlist/${item.id}`),setCategoryDetaiId(Number(item.id))}}>{item.name}</li>))}
 
                     </ul>
                 </div>
