@@ -1,5 +1,5 @@
 export interface PropsButtonSubmit {
-    onClick?: () => void;
+    onClick?: () => void| undefined;
     label: React.ReactNode;
     className?: string;
 }
@@ -69,16 +69,84 @@ enum UserStatus {
         BANNED = "BANNED",
         TEMPORARY_BAN = "TEMPORARY_BAN"
 }
+//
+
+    enum ReceiptStatus {
+        SHOPPING = "SHOPPING", // Khách đang lựa, cart
+        PENDING = "PENDING", // chờ shop xác nhận
+        ACCEPTED = "ACCEPTED", // shop đã ok chờ vận chuyển tới nhận
+        SHIPPING = "SHIPPING", // bên vận chuyển thao tác
+        DONE = "DONE" // khách đã nhận hàng và hoàn tất thủ tục thanh toán
+    }
+
+    export interface Guest {
+        id: string;
+        name: string;
+        numberPhone: string;
+        email: string;
+        receipts: Receipt[];
+    }
+    
+    
+    export interface ReceiptDetail {
+        id: string;
+        receiptId: string;
+        optionId: string;
+        quantity: number;
+        receipt: Receipt;
+        option: {
+            id: string;
+            name: string;
+            productId: string;
+            product: Product;
+            product_option_images: {
+                id: string;
+                url: string;
+            };
+        }
+    }
+    
+    export interface Receipt {
+        id: string;
+        userId: string;
+        guestId: string;
+        user: User;
+        guest: Guest;
+        total: number;
+        status: ReceiptStatus;
+        createAt: string;
+        accepted: string;
+        shipAt: string;
+        doneAt: string;
+        detail: ReceiptDetail[];
+        payMode: PayMode
+    }
+export enum PayMode {
+        CASH = "CASH",
+        ZALO = "ZALO"
+}
 export interface Product{
+        map(arg0: (item: Product) => import("react/jsx-runtime").JSX.Element): import("react").ReactNode;
         id: string;
         name: string;
         description: string;
         price: number;
         categoryDetailId:number
-        size: ProductSize;
+        size: Size[];
         color: ProductColor;
         pictures: Productpicture[];
+        avatar:string
+        product_options:ProductOption[],
         // categoryDetail: CategoryDetails[]; 
+}
+export interface ProductOption{
+        id:number;
+        productId:string;
+        size: Size[]
+}
+export interface Size{
+        id: number;
+        name: string;  
 }
 export interface Productpicture {
         id: string;
@@ -100,6 +168,7 @@ export interface User {
         createAt: String;
         updateAt: String;
 }
+
 export interface Picture {
         file: File;
         url?: string;

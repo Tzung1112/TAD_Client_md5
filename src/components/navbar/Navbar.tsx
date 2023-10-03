@@ -8,6 +8,8 @@ export default function Navbar() {
     const userStore = useSelector((store: StoreType) => {
         return store.userStore
     })
+   
+    
     const categoryStore: any = useSelector((store: StoreType) => {
         return store.categoryStore
 
@@ -15,21 +17,13 @@ export default function Navbar() {
     console.log("🚀 ~ file: Navbar.tsx:15 ~ constcategoryStore:any=useSelector ~ categoryStore:", categoryStore)
     const navigate = useNavigate()
     const [isActive, setIsActive] = useState(null);
-    const [isActivea, setIsActivea] = useState(false);
-    const [isActiveb, setIsActiveb] = useState(false);
+
 
     const handleClick = (index: any) => {
         setIsActive(index);
       
     };
-    const handleClickkk = (index: any) => {
-        setIsActiveb(!isActiveb);
-       
-    };
-
-    const handleClickk = () => {
-        setIsActivea(!isActivea);
-    };
+ 
     
     return (
 
@@ -46,16 +40,19 @@ export default function Navbar() {
                     <span>cskh@anphuoc.com.vn</span>
                 </div>
                 <div className="right_header">
-                    {!userStore? (  <><span><i className="fa-regular fa-registered"></i></span><span onClick={() => navigate("/register")}>Đăng Kí</span><span><i className="fa-solid fa-right-to-bracket"></i></span><span onClick={() => navigate("/login")}>Đăng Nhập</span></>)
+                    {!userStore.data? (  <><span><i className="fa-regular fa-registered"></i></span><span onClick={() => navigate("/register")}>Đăng Kí</span><span><i className="fa-solid fa-right-to-bracket"></i></span><span onClick={() => navigate("/login")}>Đăng Nhập</span></>)
                     :(
                        <>
                                 <div className='user'>
-                                    <img src={(userStore as User).avatar} alt="" />
+                                    <img src={(userStore.data).avatar} alt="" />
                                     <div className='user_menu'>
+                                        {userStore.data!.role=="ADMIN"&&(
+                                        <><span  onClick={() => navigate("/admin/category")}>.AdminPage</span><br /></>)}
+                                    
                                         <span>.Tùy Chỉnh</span><br />
                                         <span>.Đăng Xuất</span>
                                     </div>
-                                    <div className='name'> <span>Xin Chào!!</span>{(userStore as User).firstName} {(userStore as User).lastName}</div>
+                                    <div className='name'> <span>Xin Chào!!</span>{(userStore.data).firstName} {(userStore.data).lastName}</div>
                                 </div>
                                
                        </>
@@ -67,7 +64,7 @@ export default function Navbar() {
             </div>
             <div className='nav_container'>
                 <div className='home_icon'>
-                    <img src="../img/logo/logo.png" alt="" />
+                    <img onClick={() => navigate("/")} src="../img/logo/logo.png" alt="" />
                 </div>
                 <div className='menu'>
                     
@@ -76,7 +73,7 @@ export default function Navbar() {
                             key={index}
                             className={`custom-span ${isActive === index ? 'active' : ''}`}
                             onClick={() => {handleClick(index),
-                                 navigate(`product/${item.id}`)}}
+                                 navigate(`product/${item.id}/productlist/1`)}}
                         >
                             {item.name}
                         </span>
@@ -85,7 +82,11 @@ export default function Navbar() {
                 </div>
                 <div className="search_cart">
                     <span><i className="fa-solid fa-magnifying-glass"></i></span>
-                    <span><i className="fa-solid fa-cart-shopping"></i></span>
+                    <span className='qtt'><i onClick={() => navigate("/cart")} className="fa-solid fa-cart-shopping"></i>
+                    <span>{userStore.cart?.detail.reduce((value, cur) => {
+                    return value += cur.quantity
+                }, 0)}</span>
+                    </span>
                 </div>
             </div>
         </>

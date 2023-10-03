@@ -27,11 +27,12 @@ export default function Admin() {
                       <li className="category">PRODUCT
               <li className="item" onClick={() => navigate("/admin/product")}>MANAGER</li>
                     </li>
-                      <li className="category">USER
-                          <li className="item">aaaa</li>
-                    </li>
+                     
                       <li className="category">RECEIPT
-                          <li className="item">aaaa</li>
+                          <li className="item" onClick={() => navigate("/admin/receipt")}>MANAGER</li>
+                    </li>
+                    <li className="category">USER
+                          <li className="item">MANAGER</li>
                     </li>
 
                 </ul>

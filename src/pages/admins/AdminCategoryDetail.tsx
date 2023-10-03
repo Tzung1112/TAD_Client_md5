@@ -15,20 +15,21 @@ export default function AdminCategory() {
     return store.categoryStore
 
   })
+  console.log("🚀 ~ file: AdminCategoryDetail.tsx:18 ~ constcategoryStore:any=useSelector ~ categoryStore:", categoryStore)
   console.log("🚀 ~ file: AdminCategory.tsx:17 ~ constcategoryStore:any=useSelector ~ categoryStore:", categoryStore.data)
   useEffect(() => {
     dispatch(findCategory())
   }, [])
-  /*  useEffect(()=>{
+   useEffect(()=>{
      api.categoryApi.findCategory()
      .then(res=>{
        dispatch(categoryAction.addCategory(res.data.data))
      })
-   }, []) */
+   }, [categoryStore])
 
   return (
-    <div className='containers'>
-      <div className='navbar'>
+    <div className='Product_containers'>
+      <div className='navbarwww'>
         <div className="nav_item"> <h1>CATEGORY MANAGER</h1>
           <span><i className="fa-regular fa-bell"></i> </span>
           <span><i className="fa-regular fa-envelope"></i></span></div>
@@ -42,10 +43,23 @@ export default function AdminCategory() {
          <thead>
             <tr>
               <th>STT</th>
-              <th>TITLE</th>
+             
+              <th>CATEGORY</th>
+              <th>CATEGORYDETAILS</th>  
             </tr>
          </thead>
-          <tbody></tbody>
+          <tbody>
+            <span></span>
+            {categoryStore.data.map((item:any, index:number)=>(
+               <tr>
+               <td>{index+1}</td>
+               <td>{item.name}</td>
+               <td> {item.categoryDetails.map((items:any, id:number)=>( <span><span>{id+1}.</span>{items.name} </span> ))}</td>
+                
+             </tr>
+            ))}
+           
+          </tbody>
          
 
         </table>

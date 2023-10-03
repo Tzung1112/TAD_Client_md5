@@ -1,3 +1,4 @@
+import LazyLoad from '@/components/lazy_loadings/lazyLoading';
 import Product from '@/pages/products/Product';
 import ProductDetail from "@/pages/products/ProductDetail";
 import ProductList from "@/pages/products/ProductList";
@@ -8,10 +9,10 @@ export default
     <>
         <Route>
             <Route path="product/:categoryId" element={<Product></Product>} >
-                <Route path="product/productlist/:categoryDetaillId" element={<ProductList></ProductList>} >
+                <Route path="productlist/:categoryDetaillId" element={<ProductList></ProductList>} >
                 </Route>
             </Route>
-            <Route path="productdetail" element={<ProductDetail></ProductDetail>} >
+            <Route path="productdetail/:id" element={LazyLoad(() => import("../pages/products/ProductDetail"))()} >
             </Route>
         </Route>
     </>

@@ -1,9 +1,9 @@
-.containers{
+.Product_containers{
     width: 100%;
     height: 100%;
     background-color: $cln;
     border-radius: 10px;
-    .navbar{
+    .navbarwww{
        
             background-color: $clb;
         border-radius: 5px;
@@ -61,6 +61,7 @@
         table{
             width: 100%;
             border-collapse: collapse;
+            text-align: center;
         }
     }
 }

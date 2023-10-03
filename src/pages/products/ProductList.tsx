@@ -9,32 +9,30 @@ import { Product } from '@/interface'
 export default function ProductList() {
     const nagidate=useNavigate()
     const dispatch = useDispatch()
-    const [avt, setAvt]=useState("")
-    console.log("🚀 ~ file: ProductList.tsx:13 ~ ProductList ~ avt:", avt)
     const { categoryDetaillId }: any = useParams()
     const productStore: any = useSelector((store: StoreType) => {
         return store.productStore;
     });
-   const product:any=productStore.data.find((item:any)=>item.categoryDetailId==categoryDetaillId)
-  
-   useEffect(()=>{
-        setAvt(product.pictures[0].url)
-   },[product])
+    console.log("🚀 ~ file: ProductList.tsx:16 ~ constproductStore:any=useSelector ~ productStore:", productStore)
+    const productlist:any=productStore.data.filter((item:Product)=>item.categoryDetailId==categoryDetaillId)
    
-   console.log("🚀 ~ file: ProductList.tsx:19 ~ ProductList ~ product:", product)
   return (
     <div className='product_list'>
- 
-          <div className="card_item" onClick={()=>nagidate("/productdetail")}>
-              <div className="img">
-              <img src={product.pictures[0].url} alt="" />
-              </div>
-              <div className='content'>
-                  <span>{product.name}</span>
-                  <p>Mới</p>
-                  <span>{product.price}</span>
-              </div>
-          </div>
+        {productlist.map((item:any)=>( <div key={item.id} className="card_item" onClick={()=>nagidate(`/productdetail/${item.id}`)}>
+            <div className="img">
+            <img src={item?.avatar} alt="" />
+            </div>
+            <div className='content'>
+                <span>{item?.name}</span>
+                <p>Mới</p>
+                <span>{item?.price}</span>
+            </div>
+        </div>))}
+           
+
+      
+           
+    
          
     </div>
   )

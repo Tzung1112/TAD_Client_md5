@@ -26,8 +26,8 @@ export default function AdminCategory() {
    }, [])
 
   return (
-    <div className='containers'>
-      <div className='navbar'>
+    <div className='Category_containers'>
+      <div className='navbarsss'>
         <div className="nav_item"> <h1>CATEGORY MANAGER</h1>
           <span><i className="fa-regular fa-bell"></i> </span>
           <span><i className="fa-regular fa-envelope"></i></span></div>

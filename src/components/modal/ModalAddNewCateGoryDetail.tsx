@@ -30,6 +30,7 @@ export default function ModalAddNew() {
     .then(res=>{
       console.log(res.data);
       alert("Thanh cong Them Moi")
+      dispatch(categoryAction.addCategory(res.data.data))
       
     })
     .catch(err=>{console.log("err",err);
@@ -54,16 +55,19 @@ export default function ModalAddNew() {
             <h1 className="input_category">Thêm Mới Mục Sản Phẩm</h1>
            <form action="" onSubmit={handleAddNew}>
               <div className="input_category_detail">
-                <h2>Nhập Tên Mục Sản Phẩm Mớifdsdsd</h2>
+               <div>
+               <h4>Nhập Tên Mục Sản Phẩm Mới</h4>
                 <select name="category" id="">
                   {categoryStore.data.map((item:any) => (
                     <option value={item.id}>{item.name}</option>
-                ))}
-                 
+                ))}  
                 </select>
                
-                <h2>Nhập Tên Mục Sản Phẩm Mới:</h2>
+               </div>
+               <div>
+               <h4>Nhập Tên Mục Sản Phẩm Mới:</h4>
                 <input type="text" name='name' />
+               </div>
                 <ButtonSubmit label="Thêm Mới" className='addnew'></ButtonSubmit>
               </div>
            </form>

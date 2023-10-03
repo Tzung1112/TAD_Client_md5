@@ -13,7 +13,8 @@ export default defineConfig({
       "@services": `${path.resolve(__dirname, "./src/services/")}`,
       "@routes": `${path.resolve(__dirname, "./src/routes/")}`,
       "@utils": `${path.resolve(__dirname, "./src/utils/")}`,
-      "@slices": `${path.resolve(__dirname, "./src/stores/slices/")}`
+      "@slices": `${path.resolve(__dirname, "./src/stores/slices/")}`,
+      '@lazy':` ${path.resolve(__dirname, 'src/lazy_loadings')}`,
     },
   },
 

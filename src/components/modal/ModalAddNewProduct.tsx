@@ -1,20 +1,19 @@
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useRef, useState } from 'react'
 import "./modaladdnewproduct.scss"
 import SubmitButton from '../button/ButtonSubmit'
 import ButtonSubmit from '../button/ButtonSubmit';
 import api from '@/services/api';
-import { Category, CategoryDetails, NewCategory, Picture } from '@/interface';
+import { Category, CategoryDetails, Picture } from '@/interface';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '@/stores';
-import { categoryAction, findCategory } from '@/stores/slices/category';
-import { AsyncThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { async } from 'rxjs';
+import { categoryAction,  } from '@/stores/slices/category';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 export default function ModalAddNew() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
   const [categoryDetails, setCategoryDetails] = useState<CategoryDetails[]>()
   const [categoryDetailsId, setCategoryDetailsId]=useState(0)
   const [pictures, setPictures] = useState<Picture[]>([])
-  console.log("🚀 ~ file: ModalAddNewProduct.tsx:16 ~ ModalAddNew ~ pictures:", pictures)
+  const urlPreviewRef: React.MutableRefObject<HTMLImageElement|null>= useRef(null);
   const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const categoryStore: any = useSelector((store: StoreType) => {
     return store.categoryStore
@@ -35,10 +34,13 @@ export default function ModalAddNew() {
       description: (e.target as any).description.value,
       price: (e.target as any).price.value
     }
+
+    formData.append("avatar", avatarFile!)
+
     formData.append("product", JSON.stringify(newProduct))
    for (let i in pictures) {
 
-     await formData.append("picture", pictures[i].file)
+    await formData.append("picture", pictures[i].file)
     }
   
     try{
@@ -93,12 +95,44 @@ export default function ModalAddNew() {
         }}></i>
         <div className='item'>
           <div className='input'>
-            <h1 className="input_category">Thêm Mới  Sản Phẩm</h1>
+            <h4 className="input_category">Thêm Mới  Sản Phẩm</h4>
             <form action="" onSubmit={handleAddNew}>
               <div className="input_category_detail">
                 <div className='uploadfile'>
+              {/* */}
+               <div className="avt">
+           
+                <input className='avatar'
+                      name="avatar"
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        if (event.target.files!.length == 0) {
+                          console.log("Chưa chọn hình!");
+                        } else {
+                          let blodUrl = URL.createObjectURL(event.target.files![0]);
+                          urlPreviewRef.current!.src = blodUrl;
+                          setAvatarFile(event.target.files![0])
+                        }
+                      }}
+                      type="file"
+            /> 
+             <span>
+              <p> Avatar:</p>
+             
+             <img
+                style={{
+                width: "100px",
+                height: "100px",
+                borderRadius:"50%"
+                
+              }}
+              ref={urlPreviewRef}
+               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzj-g2tCVry_m5tMn3kFB2JHrbu1J7AukXYtOa6rXFxmULELmLJg_Q3ukvA1WJCcB0kbs&usqp=CAU"
+            />
+             </span>
+            </div>
                   <input type="file" name="" multiple id="" onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
-                    console.log("(e.target.files", (e.target.files));
+                    console.log("nhieu",e.target.files);
+                    
                     if (e.target.files) {
                       if (e.target.files.length > 0) {
                         let tempPictures: Picture[] = [];
@@ -129,7 +163,7 @@ export default function ModalAddNew() {
                 </div>
                 <div className='category_item'>
                   <div className='category'>
-                    <h3>Chọn Loại Sản Phẩm</h3>
+                    <h5>Chọn Loại Sản Phẩm</h5>
                     <select name="category" id="" onChange={handleSelectChange} >
                       {categoryStore.data.map((item: Category) => (
                         <>
@@ -140,7 +174,7 @@ export default function ModalAddNew() {
 
                     </select>
                   </div>
-                  <div className="categorydetail"> <h3>Chọn Danh Mục Sản Phẩm</h3>
+                  <div className="categorydetail"> <h5>Chọn Danh Mục Sản Phẩm</h5>
                     <select name="categorydetail" id="" onChange={handleCategorydetailChange}>
                       {categoryDetails?.map((detail: any) => (<option value={detail.id}>{detail.name}</option>))}
                     </select>    </div>

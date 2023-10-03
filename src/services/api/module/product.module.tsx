@@ -15,6 +15,12 @@ export default {
     },
     findAll: async () => {
         return await axios.get(import.meta.env.VITE_SV_HOST + "product" + "/findAll")
-    }
+    },
+    findProductById: async (productId:string) => {
+        return await axios.get(`${import.meta.env.VITE_SV_HOST}product/${productId}`)
+    },
+    createProductOption:async (data:any) => {
+        return await axios.post(`${import.meta.env.VITE_SV_HOST}product-options`, data)
+    },
 
 }

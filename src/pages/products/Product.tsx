@@ -14,15 +14,12 @@ export default function Product() {
     const categoryStore: any = useSelector((store: StoreType) => {
         return store.categoryStore;
     });
+    console.log("🚀 ~ file: Product.tsx:17 ~ constcategoryStore:any=useSelector ~ categoryStore:", categoryStore)
     const category: Category = categoryStore.data.find((item: any) => item.id == categoryId);
-   useEffect(()=>{
-    api.productApi.findAll()
-    .then((res) => {
-        dispatch(productAction.addProduct(res.data))
-    }).catch((err) => {
-        
+    console.log("🚀 ~ file: Product.tsx:18 ~ Product ~ category:", category)
+    const productStore: any = useSelector((store: StoreType) => {
+        return store.productStore;
     });
-   },[])
     return (
         <div className='product_container'>
             <div className='title'>
@@ -32,7 +29,7 @@ export default function Product() {
                 </div>
                 <div className='item'>
                     <p>{category.name}</p>
-                    <span>281 sản phẩm</span>
+                    <span>{productStore.data.length} Sản Phẩm</span>
 
                 </div>
             </div>
@@ -40,7 +37,7 @@ export default function Product() {
                 <div className='category_detail'>
                     <ul>
 
-                        {category.categoryDetails.map((item: CategoryDetails) => (<li key={item.id} onClick={() => {navigate(`product/productlist/${item.id}`),setCategoryDetaiId(Number(item.id))}}>{item.name}</li>))}
+                        {category.categoryDetails.map((item: CategoryDetails) => (<li key={item.id} onClick={() => {navigate(`productlist/${item.id}`),setCategoryDetaiId(Number(item.id))}}>{item.name}</li>))}
 
                     </ul>
                 </div>

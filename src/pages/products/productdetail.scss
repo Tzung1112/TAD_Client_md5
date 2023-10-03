@@ -61,6 +61,13 @@
                             padding: 10px 15px;
                             border: 1px solid $clg;
                             margin-left: 12px;
+                            &:hover{
+                                background-color: $clr;
+                            }
+                        }
+                        .custom-span.active {
+                            background-color: $clr;
+                            color: black;
                         }
                     }
                 }
