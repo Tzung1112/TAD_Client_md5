@@ -22,8 +22,9 @@ export default function Login() {
                     
                     localStorage.setItem("token", res.data.token)
                     message.success("Đăng Nhập thành công")
+
                     setTimeout(() => {
-                      navigate("/")
+                      window.location.href="/"
                     }, 2000)
                 }
             })

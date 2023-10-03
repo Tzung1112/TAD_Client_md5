@@ -32,6 +32,7 @@ export default function ProductDetail() {
     const [product, setProduct]= useState<Product | null>(null);
     console.log("🚀 ~ file: ProductDetail.tsx:33 ~ ProductDetail ~ product:", product?.product_options[optionsIndex].id)
     const [quantity, setQuantity]=useState(1)
+    const [quantitys, setQuantitys]=useState(0)
   
     useEffect(()=>{
        if(id){
@@ -98,7 +99,17 @@ export default function ProductDetail() {
                     </div>
                     <div className="product_addtocart">
                         <div className='quantity'>
-                              <span onClick={()=>{if(quantity>1){setQuantity(quantity-1)}}}><i className="fa-solid fa-minus"></i></span><span>{quantity}</span><span onClick={()=>{setQuantity(quantity+1)}}><i className="fa-solid fa-plus"></i></span>
+                       {/* { userStore.cart?.detail.map((item, index) =>{
+                        return <input type="number"  defaultValue={item.quantity} onChange={(e) => {
+                                userStore.socket?.emit("addToCart", {
+                                receiptId: item.receiptId,
+                                optionId: item.optionId,
+                                quantity: Number(e.target.value)
+                              })
+                            }}/>
+                        })} */}
+                       
+                             {/*  <span onClick={()=>{if(quantity>1){setQuantity(quantity-1)}}}><i className="fa-solid fa-minus"></i></span> */}<span>{quantity}</span>{/* <span onClick={()=>{setQuantity(quantity+1)}}><i className="fa-solid fa-plus"></i></span> */}
                         </div>
                         <SubmitButton label="Thêm Vào Giỏ Hàng" className='button' onClick={handleAddtocart}></SubmitButton>
                     </div>

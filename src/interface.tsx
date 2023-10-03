@@ -52,6 +52,8 @@ export interface Category {
 export interface CategoryDetails{
         id: string;
         name: string;
+        category: Category;
+        products: Product[];
 }
 
 export interface LoginUser{
@@ -137,7 +139,7 @@ export interface Product{
         pictures: Productpicture[];
         avatar:string
         product_options:ProductOption[],
-        // categoryDetail: CategoryDetails[]; 
+        categoryDetail: CategoryDetails; 
 }
 export interface ProductOption{
         id:number;

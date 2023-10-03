@@ -41,7 +41,8 @@ export default function AdminProduct() {
     // Ví dụ: Đặt lại giá trị của optionValue thành chuỗi rỗng
   useEffect(()=>{
 
-  },[productStore])
+  },[productStore.data])
+       
         
   
     return (
@@ -60,11 +61,11 @@ export default function AdminProduct() {
                    <thead>
                         <tr>
                             <th>STT</th>
-                            <th>NAME</th>
-                            <th>AVATAR</th>
-                            <th>PRICE</th>
-                            <th>OPTIONS</th>
-                            <th> ADD OPTIONS</th>
+                            <th>Sản Phẩm</th>
+                            <th>Hình Ảnh</th>
+                            <th>Giá</th>
+                            <th>Lựa Chọn</th>
+                            <th>Thêm Lựa Chọn</th>
                         </tr>
                    </thead>
                    <tbody>
@@ -72,7 +73,7 @@ export default function AdminProduct() {
                         <td>{index+1}</td>
                         <td>
 
-                            {item.name}</td>
+                        {item.name}.[{item.categoryDetail.category.name}/{item.categoryDetail.name}]</td>
                         <td>
                         <img width={100} src= {item.avatar} alt="" />
                            </td>

@@ -8,6 +8,7 @@ export default function Navbar() {
     const userStore = useSelector((store: StoreType) => {
         return store.userStore
     })
+    console.log("🚀 ~ file: Navbar.tsx:11 ~ userStore ~ userStore:", userStore)
    
     
     const categoryStore: any = useSelector((store: StoreType) => {
