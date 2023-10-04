@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import "./navbar.scss"
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { StoreType } from '@/stores'
 import { Category, User } from '@/interface'
+import { Modal } from 'antd'
+import { userAction } from '@/stores/slices/user'
 export default function Navbar() {
     const userStore = useSelector((store: StoreType) => {
         return store.userStore
     })
     console.log("🚀 ~ file: Navbar.tsx:11 ~ userStore ~ userStore:", userStore)
    
+    const dispatch = useDispatch()
     
     const categoryStore: any = useSelector((store: StoreType) => {
         return store.categoryStore
@@ -24,7 +27,19 @@ export default function Navbar() {
         setIsActive(index);
       
     };
- 
+    const handleLogout = () => {
+        Modal.confirm({
+            content: "Bạn Có Muốn Đăng Xuất?",
+            onOk: () => {
+                localStorage.removeItem("token");
+                userStore.socket?.disconnect()
+                dispatch(userAction.setCart(null))
+                dispatch(userAction.setData(null))
+                dispatch(userAction.setReceipt(null))
+                dispatch(userAction.setSocket(null))
+            },
+        });
+    };
     
     return (
 
@@ -51,7 +66,9 @@ export default function Navbar() {
                                         <><span  onClick={() => navigate("/admin/category")}>.AdminPage</span><br /></>)}
                                     
                                         <span>.Tùy Chỉnh</span><br />
-                                        <span>.Đăng Xuất</span>
+                                        <span onClick={() => {
+                                                    handleLogout()
+                                                }}>.Đăng Xuất</span>
                                     </div>
                                     <div className='name'> <span>Xin Chào!!</span>{(userStore.data).firstName} {(userStore.data).lastName}</div>
                                 </div>

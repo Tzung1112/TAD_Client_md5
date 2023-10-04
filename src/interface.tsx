@@ -50,7 +50,7 @@ export interface Category {
         categoryDetails: CategoryDetails[]
 }
 export interface CategoryDetails{
-        id: string;
+        id: number;
         name: string;
         category: Category;
         products: Product[];
@@ -82,7 +82,7 @@ enum UserStatus {
     }
 
     export interface Guest {
-        id: string;
+        id: number;
         name: string;
         numberPhone: string;
         email: string;
@@ -91,27 +91,27 @@ enum UserStatus {
     
     
     export interface ReceiptDetail {
-        id: string;
-        receiptId: string;
-        optionId: string;
+        id: number;
+        receiptId: number;
+        optionId: number;
         quantity: number;
         receipt: Receipt;
         option: {
-            id: string;
+            id: number;
             name: string;
-            productId: string;
+            productId: number;
             product: Product;
             product_option_images: {
-                id: string;
+                id: number;
                 url: string;
             };
         }
     }
     
     export interface Receipt {
-        id: string;
-        userId: string;
-        guestId: string;
+        id: number;
+        userId: number;
+        guestId: number;
         user: User;
         guest: Guest;
         total: number;
@@ -129,7 +129,7 @@ export enum PayMode {
 }
 export interface Product{
         map(arg0: (item: Product) => import("react/jsx-runtime").JSX.Element): import("react").ReactNode;
-        id: string;
+        id: number;
         name: string;
         description: string;
         price: number;
@@ -143,7 +143,7 @@ export interface Product{
 }
 export interface ProductOption{
         id:number;
-        productId:string;
+        productId:number;
         size: Size[]
 }
 export interface Size{
@@ -151,13 +151,13 @@ export interface Size{
         name: string;  
 }
 export interface Productpicture {
-        id: string;
+        id: number;
         url: string;
         product: Product;
 }
 export interface User {
         map: any;
-        id: string;
+        id: number;
         avatar: string;
         email: string;
         emailAuthentication: boolean;

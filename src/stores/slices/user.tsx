@@ -24,7 +24,7 @@ enum ReceiptStatus {
 }
 
 export interface User {
-    id: string;
+    id: number;
     avatar: string;
     email: string;
     emailAuthentication: boolean;
@@ -39,7 +39,7 @@ export interface User {
 }
 
 export interface Guest {
-    id: string;
+    id: number;
     name: string;
     numberPhone: string;
     email: string;
@@ -48,27 +48,27 @@ export interface Guest {
 
 
 export interface ReceiptDetail {
-    id: string;
-    receiptId: string;
-    optionId: string;
+    id: number;
+    receiptId: number;
+    optionId: number;
     quantity: number;
     receipt: Receipt;
     option: {
-        id: string;
+        id: number;
         name: string;
-        productId: string;
+        productId: number;
         product: Product;
         product_option_images: {
-            id: string;
+            id: number;
             url: string;
         };
     }
 }
 
 export interface Receipt {
-    id: string;
-    userId: string;
-    guestId: string;
+    id: number;
+    userId: number;
+    guestId: number;
     user: User;
     guest: Guest;
     total: number;

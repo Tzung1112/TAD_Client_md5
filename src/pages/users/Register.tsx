@@ -5,6 +5,7 @@ import api from '../../services/api';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 export default function Register() {
   const navigate = useNavigate()
   const formik=useFormik({
@@ -71,12 +72,12 @@ export default function Register() {
       .then(res => {
        
         if (res.status != 200) {
-          
+          message.warning("Đăng Kí Thất Bại")
         } else {
-          alert("thanh cong")
-          // setTimeout(() => {
-          //   navigate("/login")
-          // }, 2000)
+          message.success("Đăng Kí Thành Công")
+          setTimeout(() => {
+            navigate("/login")
+          }, 2000)
         }
       })
       .catch(err => {

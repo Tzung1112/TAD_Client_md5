@@ -13,7 +13,7 @@ export default function AdminProduct() {
     console.log("🚀 ~ file: AdminProduct.tsx:9 ~ constproductStore:any=useSelector ~ productStore:", productStore)
    
     const[ showModal, setShowModal]=useState(false)
-    const [idProduct,setIdProduct]=useState("")
+    const [idProduct,setIdProduct]=useState(0)
     console.log("🚀 ~ file: AdminProduct.tsx:17 ~ AdminProduct ~ idProduct:", idProduct)
     const [optionValue, setOptionValue] = useState(''); // Khởi tạo giá trị ban đầu là chuỗi rỗng
     console.log("🚀 ~ file: AdminProduct.tsx:19 ~ AdminProduct ~ optionValue:", optionValue)
@@ -22,7 +22,7 @@ export default function AdminProduct() {
       // Lấy giá trị từ ô input và cập nhật vào state
       setOptionValue(e.target.value);
     };
-    function handleAddOptons(idProduct:string, optionValue:any){
+    function handleAddOptons(idProduct:number, optionValue:any){
         let data={
             productId:idProduct,
             name:optionValue

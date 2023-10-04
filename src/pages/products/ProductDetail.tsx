@@ -12,7 +12,7 @@ import api from '@/services/api';
 
 
 export default function ProductDetail() {
-    const {id}: any = useParams()
+    const {id}:any = useParams()
 
     const productStore: any = useSelector((store: StoreType) => {
         return store.productStore;
@@ -21,6 +21,7 @@ export default function ProductDetail() {
         return store.userStore
        
     })
+    console.log("🚀 ~ file: ProductDetail.tsx:24 ~ userStore ~ userStore:", userStore)
     const [isActive, setIsActive] = useState(null);
 
 
@@ -28,9 +29,9 @@ export default function ProductDetail() {
         setIsActive(index);
       
     };
-    const [optionsIndex,setOptionsIndex]=useState(Number(0))
+    const [optionsIndex,setOptionsIndex]=useState(0)
     const [product, setProduct]= useState<Product | null>(null);
-    console.log("🚀 ~ file: ProductDetail.tsx:33 ~ ProductDetail ~ product:", product?.product_options[optionsIndex].id)
+    console.log("🚀 ~ file: ProductDetail.tsx:34 ~ ProductDetail ~ product:", product)
     const [quantity, setQuantity]=useState(1)
     const [quantitys, setQuantitys]=useState(0)
   

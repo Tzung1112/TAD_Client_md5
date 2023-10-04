@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import {useSelector} from 'react-redux'
 import { StoreType } from '@/stores'
-import {QRCode} from 'antd'
+import {Modal, QRCode, message} from 'antd'
 import "./carts.scss"
+import { useNavigate } from 'react-router-dom'
 export default function CartCom() {
+  const navigate = useNavigate()
 
   const userStore = useSelector((store: StoreType) => {
     return store.userStore
   })
 
 
-  console.log("userStore.cartPayQr",userStore.cartPayQr);
   
 
   const removeFromCart = (receiptId:any, optionId:any) => {
     // Gửi yêu cầu xóa sản phẩm đến máy chủ thông qua WebSocket
     userStore.socket?.emit("removeFromCart", { receiptId, optionId });
   };
-
+  function handleCheckout(){
+    message.success("Thanh toán thành công")
+    setTimeout(() => {
+      navigate("/purchase-history")
+    }, 2000)
+  }
 
 
   // ... phần hiển thị giỏ hàng và xử lý sự kiện ở đây
@@ -42,8 +48,8 @@ export default function CartCom() {
             <tbody>
               {userStore.cart?.detail.map((item, index)=>{
                 return  <tr>
-                <td>Stt</td>
-                <td>{item.option.product.name}</td>
+                <td>{index+1}</td>
+                <td>{item.option.product.name}[Size:{item.option.name}]</td>
                 <td><img style={{width:"100px", height:"100px"}} src={item.option.product.avatar} alt="" /></td>
                 <td>{item.option.product.price}đ</td>
                 <td><input style={{width:"50px", fontSize:"30px"}} min={1} type="number"  defaultValue={item.quantity} onChange={(e) => {
@@ -54,7 +60,14 @@ export default function CartCom() {
                 })
               }}/></td>
                 <td>{item.quantity * item.option.product.price}đ</td>
-              <td ><button  onClick={() => removeFromCart(item.receiptId, item.optionId)}>Xóa </button></td>
+              <td ><button onClick={()=>{
+                   Modal.confirm({
+                  content: "Bạn Có Muốn Xóa Sản Phẩm Khỏi Giỏ Hàng?",
+                    onOk: () => {
+                    removeFromCart(item.receiptId, item.optionId)
+                  },
+                            })
+              }} >Xóa </button></td>
 
               </tr>
               })}
@@ -89,8 +102,8 @@ export default function CartCom() {
           <div>
             <div>
             {
-        userStore.cartPayQr && <QRCode value={userStore.cartPayQr} icon='https://cafebiz.cafebizcdn.vn/thumb_w/600/162123310254002176/2022/7/9/photo1657324993775-1657324993859181735127.jpg'/>
-      }
+          userStore.cartPayQr && <QRCode value={userStore.cartPayQr} icon='https://cafebiz.cafebizcdn.vn/thumb_w/600/162123310254002176/2022/7/9/photo1657324993775-1657324993859181735127.jpg'/>
+           }
             </div>
             </div>
           <div className='total'>Tổng Thanh Toán : {userStore.cart?.detail.reduce((value, cur) => {
